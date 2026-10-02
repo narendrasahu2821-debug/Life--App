@@ -32,8 +32,9 @@ jobs:
         run: |
           find "$PROJECT_DIR" -type f \( -name "build.gradle" -o -name "build.gradle.kts" \) -print0 | while IFS= read -r -d '' file; do
             echo "Checking $file"
-            sed -i "s/sourceCompatibility JavaVersion.VERSION_1_8/sourceCompatibility JavaVersion.VERSION_17/g" "$file"
-            sed -i "s/targetCompatibility JavaVersion.VERSION_1_8/targetCompatibility JavaVersion.VERSION_17/g" "$file"
+            sed -i 's/VERSION_1_8/VERSION_17/g' "$file"
+            sed -i "s/jvmTarget = ['\"]1.8['\"]/jvmTarget = '17'/g" "$file"
+            sed -i 's/jvmTarget = ['\"]8['\"]/jvmTarget = '\''17'\''/g' "$file"
           done
 
       - name: Build APK
